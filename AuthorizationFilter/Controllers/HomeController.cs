@@ -1,4 +1,5 @@
 using AuthorizationFilter.Models;
+using AuthorizationFilter.Models.Filters;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -27,6 +28,18 @@ namespace AuthorizationFilter.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [CustomAuthorizationFilter("admin")]
+        public IActionResult Action1()
+        {
+            return View();
+        }
+
+        [CustomAuthorizationFilter("customer")]
+        public IActionResult Action2()
+        {
+            return View();
         }
     }
 }
